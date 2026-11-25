@@ -1,0 +1,23 @@
+{
+  "name": "Emergency SOS – SafeSignal",
+  "short_name": "SafeSignal",
+  "description": "Mobile-friendly Emergency SOS Web Application with on-demand GPS location sharing",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F5F5F7",
+  "theme_color": "#D32F2F",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
