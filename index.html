@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#D32F2F">
+  <meta name="description" content="SafeSignal - Mobile & Desktop Emergency SOS Web Application">
+  <title>Emergency SOS – SafeSignal</title>
+  
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">🚨</span>
+        <h1>SafeSignal</h1>
+      </div>
+      <div class="status-badge" id="gps-badge" role="status">GPS On-Demand</div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    
+    <!-- Toast Alert Banner -->
+    <div id="alert-banner" class="alert-banner hidden" role="alert" aria-live="polite"></div>
+
+    <!-- Main SOS Panic Button Section -->
+    <section class="sos-section" aria-label="Emergency Trigger">
+      <div class="sos-button-wrapper">
+        <button id="sos-btn" class="sos-button" aria-label="Trigger Emergency SOS">
+          <span class="sos-text">SOS</span>
+          <span class="sos-subtext">Tap to Send Alert</span>
+        </button>
+      </div>
+
+      <!-- 5-Second Cancellation Safeguard Overlay -->
+      <div id="countdown-card" class="countdown-card hidden" aria-live="assertive">
+        <div class="countdown-content">
+          <p class="countdown-label">ALERT DISPATCHING IN</p>
+          <div id="countdown-timer" class="countdown-number">5</div>
+          <p class="countdown-subtext">Tap Cancel to stop dispatch</p>
+          <button id="cancel-sos-btn" class="btn btn-cancel">CANCEL ALERT</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Status Card -->
+    <section class="card location-card">
+      <div class="card-header">
+        <h2>Current Location</h2>
+        <button id="refresh-location-btn" class="btn btn-outline btn-sm">📍 Refresh GPS</button>
+      </div>
+      <div id="location-display" class="location-display">
+        <p class="location-placeholder">GPS coordinates will be retrieved automatically when SOS is activated or when you tap 'Refresh GPS'.</p>
+      </div>
+    </section>
+
+    <!-- Trusted Emergency Contacts Section -->
+    <section class="card contacts-card">
+      <div class="card-header">
+        <h2>Emergency Contacts</h2>
+        <button id="open-add-modal-btn" class="btn btn-primary">+ Add Contact</button>
+      </div>
+
+      <div id="contacts-list" class="contacts-list">
+        <!-- Dynamic contact rows inserted via JS -->
+      </div>
+    </section>
+
+    <!-- Technical & Browser Limitations Info -->
+    <section class="card info-card">
+      <h3>ℹ️ Web Application Operating Notes</h3>
+      <ul>
+        <li><strong>On-Demand Location:</strong> GPS permission is requested when initiating an SOS or manually refreshing location.</li>
+        <li><strong>Alert Dispatch:</strong> Triggers native Web Share or opens your device's SMS application with a pre-formatted message.</li>
+        <li><strong>Browser Security:</strong> Standard websites cannot send silent background SMS messages or capture hardware buttons while locked.</li>
+        <li><strong>Local Privacy:</strong> All contact data remains stored on your device via <code>localStorage</code>.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Add/Edit Contact Modal Dialog -->
+  <div id="contact-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <h3 id="modal-title">Add Trusted Contact</h3>
+      <form id="contact-form">
+        <input type="hidden" id="contact-id">
+        <div class="form-group">
+          <label for="contact-name">Full Name</label>
+          <input type="text" id="contact-name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-phone">Phone Number</label>
+          <input type="tel" id="contact-phone" class="form-input" placeholder="e.g. +14155552671" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="close-modal-btn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Contact</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
